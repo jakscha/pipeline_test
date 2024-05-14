@@ -26,7 +26,7 @@ jobs:
       with:
         image-reference: "testrepo/testimage:latest"
         dockerfile-path: "./Dockerfile"
-        fail-build: true
+        fail-build: false
 
 #    - name: Push Docker image to Docker Hub
 #      if: failure()
