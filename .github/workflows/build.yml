@@ -13,13 +13,14 @@ jobs:
     - name: Docker Build
       run: docker build . --file Dockerfile --tag testrepo/testimage:latest
     - uses: anchore/scan-action@v1
+      id: anchore_scan
       with:
         image-reference: "testrepo/testimage:latest"
         dockerfile-path: "./Dockerfile"
         fail-build: true
 
   build-and-push:
-    if: success()
+    if: ${{ job.status == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
