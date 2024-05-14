@@ -22,5 +22,24 @@ jobs:
     - name: Build Docker image
       run: docker build -t jakob999/vulnerable_app:latest .
 
+    - name: Scan Docker Image with Anchore
+      id: anchore-scan
+      run: |
+        docker pull jakob999/vulnerable_app:latest
+        docker run -d --name anchore-engine anchore/engine-cli:v0.10.1 anchore-engine service start
+        docker run --rm -v $(pwd):/workspace -e "ANCHORE_ENDPOINT=http://anchore-engine:8228/v1" anchore/engine-cli:v0.10.1 anchore-cli image add jakob999/vulnerable_app:latest
+        docker run --rm -v $(pwd):/workspace -e "ANCHORE_ENDPOINT=http://anchore-engine:8228/v1" anchore/engine-cli:v0.10.1 anchore-cli image wait jakob999/vulnerable_app:latest
+        docker run --rm -v $(pwd):/workspace -e "ANCHORE_ENDPOINT=http://anchore-engine:8228/v1" anchore/engine-cli:v0.10.1 anchore-cli image vuln jakob999/vulnerable_app:latest os > anchore-scan.log
+
+    - name: Check Anchore Scan Results
+      run: |
+        if grep -q 'Vulnerabilities found' anchore-scan.log; then
+          echo "Vulnerabilities found. Image will not be pushed."
+          exit 1
+        else
+          echo "No vulnerabilities found. Image will be pushed."
+        fi
+
     - name: Push Docker image to Docker Hub
+      if: success() # Dieser Schritt wird nur ausgeführt, wenn vorherige Schritte erfolgreich waren
       run: docker push jakob999/vulnerable_app:latest
