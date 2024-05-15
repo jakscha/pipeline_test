@@ -22,7 +22,7 @@ jobs:
      - name: Snyk auth
        run: snyk test
        env:
-         SYNK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
 
      - name: Login to Docker Hub
