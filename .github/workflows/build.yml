@@ -19,6 +19,11 @@ jobs:
      - name: Run Tests
        run: curl http://localhost:8080
 
+     - name: ZAP Security scan
+       uses: zaproxy/action-baseline@v0.3.0
+       with:
+         target: 'http://localhost:8080'
+
      - name: Stop Docker container
        run: docker stop my-webserver
 
