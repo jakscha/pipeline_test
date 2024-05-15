@@ -11,10 +11,10 @@ jobs:
      steps:
      - uses: actions/checkout@v1
      - name: Docker Build
-       run: docker build . --file Dockerfile --tag testrepo/testimage:latest
+       run: docker build . --file Dockerfile -t my-webserver
 
      - name: Start Docker Container
-       run: docker run -d --name my-webserver -p 8080:80 testimage
+       run: docker run -d --name my-webserver -p 8080:80 my-webserver
 
      - name: Run Tests
        run: curl http://localhost:8080
