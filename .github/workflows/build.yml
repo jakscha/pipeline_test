@@ -10,20 +10,17 @@ jobs:
      runs-on: ubuntu-latest
      steps:
      - uses: actions/checkout@v1
-#     - name: Docker Build
-#       run: docker build . --file Dockerfile --tag testrepo/testimage:latest
+     - name: Docker Build
+       run: docker build . --file Dockerfile --tag testrepo/testimage:latest
 
-     - name: Run Codacy Analysis CLI
-       uses: codacy/codacy-analysis-cli-action@master
-       with:
-          output: results.sarif
-          format: sarif
-          # Adjust severity of non-security issues
-          gh-code-scanning-compat: true
-          # Force 0 exit code to allow SARIF file generation
-          # This will hand over control about PR rejection to the GitHub side
-          max-allowed-issues: 2147483647
+     - name: Start Docker Container
+       run: docker run -d --name my-webserver -p 8080:80 testimage
 
+     - name: Run Tests
+       run: curl http://localhost:8080
+
+     - name: Stop Docker container
+       run: docker stop my-webserver
 
      - name: Login to Docker Hub
        if: success()
