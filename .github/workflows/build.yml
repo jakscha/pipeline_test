@@ -10,9 +10,12 @@ jobs:
      runs-on: ubuntu-latest
      steps:
      - uses: actions/checkout@v1
-     - name: Docker Build
-       run: docker build . --file Dockerfile --tag testrepo/testimage:latest
+#     - name: Docker Build
+#       run: docker build . --file Dockerfile --tag testrepo/testimage:latest
 
+# synk
+     - uses: actions/checkout@master
+     - uses: snyk/actions/setup@master
      - uses: actions/setup-go@v1
        with:
         go-version: "1.13"
