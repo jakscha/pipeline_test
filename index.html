@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Testseite für DevSecOps-Pipeline</title>
+    <script src="script.js"></script>
 </head>
 <body>
     <h1>Testseite für DevSecOps-Pipeline</h1>
@@ -11,11 +12,5 @@
     <textarea id="codeInput" rows="5" cols="50"></textarea><br>
     <button onclick="executeCode()">Code ausführen</button>
 
-    <script>
-        function executeCode() {
-            var code = document.getElementById("codeInput").value;
-            eval(code); // Hier wird der eingegebene Code ausgeführt (unsicher!)
-        }
-    </script>
 </body>
 </html>
