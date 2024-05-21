@@ -7,7 +7,7 @@ on:
 
 jobs:
    test_image:
-     runs-on: self-hosted
+     runs-on: raspberrypi
      steps:
      - uses: actions/checkout@v1
      - name: Docker Build
