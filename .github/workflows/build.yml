@@ -45,3 +45,9 @@ jobs:
 
 #     - name: Push to DockerHub
 #       run: sudo docker push jakob999/vulnerable_app:latest
+
+     - name: Delete Container
+       run: sudo docker rm vulnerable_app
+
+     - name: Delete Image
+       run: sudo docker rmi vulnerable_app
