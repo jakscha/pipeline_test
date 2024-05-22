@@ -17,7 +17,7 @@ jobs:
        run: sudo docker run -d --name vulnerable_app -p 8080:80 vulnerable_app
 
      - name: Run Tests
-       run: curl http://localhost:8081
+       run: curl http://localhost:8080
 
      - name: Run OWASP ZAP
        uses: zaproxy/action-baseline@v0.12.0
